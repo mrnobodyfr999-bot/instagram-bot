@@ -203,7 +203,7 @@ def call_gemini_with_retry(full_prompt, max_retries=3):
     for attempt in range(max_retries):
         try:
             response = client.models.generate_content(
-                model='gemini-3.6-flash',
+                model='gemini-2.5-flash',
                 contents=full_prompt
             )
             return response.text
@@ -233,7 +233,6 @@ def process_bot_logic(user_id, user_input, incoming_image_url=None):
     user_session_memory[user_id]["history"].append(f"კლიენტი: {log_text}")
     session_history_text = "\n".join(user_session_memory[user_id]["history"][-5:])
 
-    # გამოსწორებული ნაწილი: ვეძებთ ნომერს მხოლოდ კლიენტის ტექსტში და არა ID-სთან ერთად!
     digits_in_text = re.sub(r'\D', '', user_input)
     customer_context = ""
     found_phone = ""
@@ -439,4 +438,5 @@ def webhook():
 
 if __name__ == '__main__':
     print("ინსტაგრამის სრული ონლაინ მაღაზიის ბოტი ყველა დაცვით გაშვებულია!")
-    app.run(port=5000, debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
