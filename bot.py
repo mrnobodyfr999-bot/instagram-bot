@@ -437,6 +437,5 @@ def webhook():
         return jsonify({"status": "success"}), 200
 
 if __name__ == '__main__':
-    print("ინსტაგრამის სრული ონლაინ მაღაზიის ბოტი ყველა დაცვით გაშვებულია!")
     port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+    app.run(host="0.0.0.0", port=port, debug=False)
